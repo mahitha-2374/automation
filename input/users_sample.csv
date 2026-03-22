@@ -1,0 +1,8 @@
+UserID,Role_Name,Account_Status,Manager,gsi_id,template
+UBOC-AD\user001,Platform Administrator,ACTIVE,manager001,APP-001,T3_Standard
+UBOC-AD\user002,User Console Editor,ACTIVE,manager002,APP-001,T3_Standard
+UBOC-AD\user003,Platform Administrator,ACTIVE,manager001,SEC-002,OLA_Standard
+UBOC-AD\user004,Viewer,ACTIVE,manager003,SEC-002,OLA_Standard
+UBOC-AD\user005,Admin User,ACTIVE,manager001,SYS-003,IAM_Audit
+APP\svc_tmi,User Console Editor,ACTIVE,admin,APP-001,T3_Standard
+APP\svc_app,Platform Administrator,ACTIVE,admin,APP-001,Executive_Summary

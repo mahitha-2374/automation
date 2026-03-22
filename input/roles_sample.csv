@@ -1,0 +1,9 @@
+Role_Name,ResName1,Description,Module,gsi_id
+Platform Administrator,Modify Security Configuration,Can modify security settings,Admin,APP-001
+Platform Administrator,Execute Catalog Refresh,Can trigger catalog refresh,Catalog,APP-001
+Platform Administrator,View User Access,Can view all user access,Reporting,SEC-002
+User Console Editor,Create Access Request,Can create access requests,Access,APP-001
+User Console Editor,View Access Request,Can view access requests,Access,SEC-002
+Viewer,View System Data,Read-only access,System,SYS-003
+Viewer,Generate Reports,Can generate reports,Reporting,SEC-002
+Admin User,Full System Access,Complete system access,Admin,SYS-003
