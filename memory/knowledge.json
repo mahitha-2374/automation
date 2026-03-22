@@ -1,0 +1,105 @@
+{
+    "mappings": {
+        "userid": {
+            "category": "user",
+            "confidence": 1.0,
+            "learned_at": "2026-03-22T17:35:01.026767"
+        },
+        "role_name": {
+            "category": "role",
+            "confidence": 0.8995248675346375,
+            "learned_at": "2026-03-22T17:35:01.048280"
+        },
+        "account_status": {
+            "category": "user",
+            "confidence": 0.533392071723938,
+            "learned_at": "2026-03-22T17:35:01.067939"
+        },
+        "manager": {
+            "category": "user",
+            "confidence": 0.5654171705245972,
+            "learned_at": "2026-03-22T17:35:01.085967"
+        },
+        "resname1": {
+            "category": "user",
+            "confidence": 0.4918333888053894,
+            "learned_at": "2026-03-22T17:35:01.105148"
+        },
+        "description": {
+            "category": "entitlement",
+            "confidence": 0.4600348472595215,
+            "learned_at": "2026-03-22T17:35:01.120358"
+        },
+        "module": {
+            "category": "module",
+            "confidence": 1.0,
+            "learned_at": "2026-03-22T17:35:01.135650"
+        },
+        "gsi_id": {
+            "category": "user",
+            "confidence": 0.5343939065933228,
+            "learned_at": "2026-03-22T17:38:02.597008"
+        },
+        "template": {
+            "category": "module",
+            "confidence": 0.3651844263076782,
+            "learned_at": "2026-03-22T17:38:02.610075"
+        }
+    },
+    "history": [
+        {
+            "column": "UserID",
+            "category": "user",
+            "confidence": 1.0,
+            "timestamp": "2026-03-22T17:35:01.026767"
+        },
+        {
+            "column": "Role_Name",
+            "category": "role",
+            "confidence": 0.8995248675346375,
+            "timestamp": "2026-03-22T17:35:01.048280"
+        },
+        {
+            "column": "Account_Status",
+            "category": "user",
+            "confidence": 0.533392071723938,
+            "timestamp": "2026-03-22T17:35:01.067939"
+        },
+        {
+            "column": "Manager",
+            "category": "user",
+            "confidence": 0.5654171705245972,
+            "timestamp": "2026-03-22T17:35:01.085967"
+        },
+        {
+            "column": "ResName1",
+            "category": "user",
+            "confidence": 0.4918333888053894,
+            "timestamp": "2026-03-22T17:35:01.105148"
+        },
+        {
+            "column": "Description",
+            "category": "entitlement",
+            "confidence": 0.4600348472595215,
+            "timestamp": "2026-03-22T17:35:01.120358"
+        },
+        {
+            "column": "Module",
+            "category": "module",
+            "confidence": 1.0,
+            "timestamp": "2026-03-22T17:35:01.135650"
+        },
+        {
+            "column": "gsi_id",
+            "category": "user",
+            "confidence": 0.5343939065933228,
+            "timestamp": "2026-03-22T17:38:02.597008"
+        },
+        {
+            "column": "template",
+            "category": "module",
+            "confidence": 0.3651844263076782,
+            "timestamp": "2026-03-22T17:38:02.610075"
+        }
+    ]
+}
