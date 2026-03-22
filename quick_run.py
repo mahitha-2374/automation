@@ -12,6 +12,16 @@ sys.path.insert(0, os.path.dirname(__file__))
 # Import only what we need
 from utils.export_manager import ExportManager
 
+
+def load_input_dataframe(file_path):
+    """Load CSV or Excel file based on extension."""
+    lower_path = file_path.lower()
+    if lower_path.endswith(".csv"):
+        return pd.read_csv(file_path)
+    if lower_path.endswith((".xlsx", ".xls")):
+        return pd.read_excel(file_path, engine="openpyxl")
+    raise ValueError(f"Unsupported file type: {file_path}. Use CSV, XLSX, or XLS.")
+
 def main():
     # Configuration
     user_file = "input/users_sample.csv"
@@ -21,8 +31,8 @@ def main():
     print("🔄 Processing files...")
     
     # Load data
-    user_df = pd.read_csv(user_file)
-    role_df = pd.read_csv(role_file)
+    user_df = load_input_dataframe(user_file)
+    role_df = load_input_dataframe(role_file)
     
     print(f"  ✓ Loaded {len(user_df)} users")
     print(f"  ✓ Loaded {len(role_df)} roles")
