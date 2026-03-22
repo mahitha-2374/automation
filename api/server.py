@@ -14,6 +14,17 @@ from generators.excel_generator import ExcelGenerator
 from generators.word_generator import WordGenerator
 from generators.report_generator import ExplainReport
 
+
+def load_input_dataframe(uploaded_file):
+    """Load CSV or Excel uploads into a DataFrame."""
+    file_name = (uploaded_file.filename or "").lower()
+    uploaded_file.stream.seek(0)
+    if file_name.endswith(".csv"):
+        return pd.read_csv(uploaded_file.stream)
+    if file_name.endswith((".xlsx", ".xls")):
+        return pd.read_excel(uploaded_file.stream, engine="openpyxl")
+    raise ValueError("Unsupported file type. Please upload CSV, XLSX, or XLS files.")
+
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max
 
@@ -32,8 +43,8 @@ def process():
     Main processing endpoint
     
     Expects:
-    - user_file: CSV file (multipart)
-    - role_file: CSV file (multipart)
+    - user_file: CSV/XLSX/XLS file (multipart)
+    - role_file: CSV/XLSX/XLS file (multipart)
     - gsi_id: Global System ID (optional)
     
     Returns:
@@ -48,8 +59,8 @@ def process():
         gsi_id = request.form.get('gsi_id', None)
 
         # Read files
-        user_df = pd.read_csv(user_file.stream)
-        role_df = pd.read_csv(role_file.stream)
+        user_df = load_input_dataframe(user_file)
+        role_df = load_input_dataframe(role_file)
 
         # Process
         engine = AdaptiveEngine()
@@ -73,8 +84,8 @@ def process_and_generate_excel():
         user_file = request.files['user_file']
         role_file = request.files['role_file']
 
-        user_df = pd.read_csv(user_file.stream)
-        role_df = pd.read_csv(role_file.stream)
+        user_df = load_input_dataframe(user_file)
+        role_df = load_input_dataframe(role_file)
 
         engine = AdaptiveEngine()
         result = engine.process(user_df, role_df)
@@ -105,8 +116,8 @@ def process_and_generate_word():
         user_file = request.files['user_file']
         role_file = request.files['role_file']
 
-        user_df = pd.read_csv(user_file.stream)
-        role_df = pd.read_csv(role_file.stream)
+        user_df = load_input_dataframe(user_file)
+        role_df = load_input_dataframe(role_file)
 
         engine = AdaptiveEngine()
         result = engine.process(user_df, role_df)
@@ -138,7 +149,7 @@ def detect_schema():
             return jsonify({"error": "No file provided"}), 400
 
         file = request.files['file']
-        df = pd.read_csv(file.stream)
+        df = load_input_dataframe(file)
 
         engine = AdaptiveEngine()
         mapping, explanations = engine.detect_schema(df)
