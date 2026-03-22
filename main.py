@@ -18,6 +18,16 @@ from utils.template_manager import TemplateManager
 from utils.export_manager import ExportManager
 
 
+def load_input_dataframe(file_path):
+    """Load CSV or Excel file into a DataFrame based on file extension."""
+    lower_path = file_path.lower()
+    if lower_path.endswith(".csv"):
+        return pd.read_csv(file_path)
+    if lower_path.endswith((".xlsx", ".xls")):
+        return pd.read_excel(file_path, engine="openpyxl")
+    raise ValueError(f"Unsupported file type: {file_path}. Use CSV, XLSX, or XLS.")
+
+
 def main():
     """Main CLI entry point"""
     parser = argparse.ArgumentParser(
@@ -27,13 +37,13 @@ def main():
     parser.add_argument(
         "--user",
         required=False,
-        help="Path to user export CSV file"
+        help="Path to user export file (CSV/XLSX/XLS)"
     )
 
     parser.add_argument(
         "--role",
         required=False,
-        help="Path to role export CSV file"
+        help="Path to role export file (CSV/XLSX/XLS)"
     )
 
     parser.add_argument(
@@ -45,7 +55,7 @@ def main():
     parser.add_argument(
         "--gsi-column",
         default=None,
-        help="Column name for GSI ID in CSV files (auto-detected if not provided)"
+        help="Column name for GSI ID in input files (auto-detected if not provided)"
     )
 
     parser.add_argument(
@@ -188,8 +198,8 @@ def main():
 
     try:
         # Load data
-        user_df = pd.read_csv(args.user)
-        role_df = pd.read_csv(args.role)
+        user_df = load_input_dataframe(args.user)
+        role_df = load_input_dataframe(args.role)
 
         # Auto-detect templates from input data
         templates_from_input = []
