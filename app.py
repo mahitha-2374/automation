@@ -18,6 +18,16 @@ from utils.gsi_manager import GSIManager
 from utils.template_manager import TemplateManager
 from utils.export_manager import ExportManager
 
+
+def load_input_dataframe(file_obj):
+    """Load CSV or Excel file into a DataFrame based on file extension."""
+    file_name = (getattr(file_obj, "name", "") or "").lower()
+    if file_name.endswith(".csv"):
+        return pd.read_csv(file_obj)
+    if file_name.endswith((".xlsx", ".xls")):
+        return pd.read_excel(file_obj, engine="openpyxl")
+    raise ValueError("Unsupported file type. Please upload CSV, XLSX, or XLS files.")
+
 # ========== PAGE CONFIG ==========
 st.set_page_config(
     page_title="IAM Automation Platform",
@@ -95,15 +105,15 @@ with st.sidebar:
     st.header("📁 File Upload")
 
     user_file = st.file_uploader(
-        "Select User Export (CSV)",
-        type=["csv"],
-        help="Upload your user export file"
+        "Select User Export (CSV/XLSX/XLS)",
+        type=["csv", "xlsx", "xls"],
+        help="Upload your user export file in CSV or Excel format"
     )
 
     role_file = st.file_uploader(
-        "Select Role Export (CSV)",
-        type=["csv"],
-        help="Upload your role/entitlement export file"
+        "Select Role Export (CSV/XLSX/XLS)",
+        type=["csv", "xlsx", "xls"],
+        help="Upload your role/entitlement export file in CSV or Excel format"
     )
 
     st.divider()
@@ -246,7 +256,7 @@ if user_file or role_file:
         if user_file:
             st.subheader("👥 User File Preview")
             try:
-                user_df = pd.read_csv(user_file)
+                user_df = load_input_dataframe(user_file)
                 st.info(f"📊 {len(user_df)} rows, {len(user_df.columns)} columns")
                 st.dataframe(user_df.head(), use_container_width=True)
             except Exception as e:
@@ -257,7 +267,7 @@ if user_file or role_file:
         if role_file:
             st.subheader("🔑 Role File Preview")
             try:
-                role_df = pd.read_csv(role_file)
+                role_df = load_input_dataframe(role_file)
                 st.info(f"📊 {len(role_df)} rows, {len(role_df.columns)} columns")
                 st.dataframe(role_df.head(), use_container_width=True)
             except Exception as e:
